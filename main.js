@@ -1,9 +1,11 @@
-var titleEl = document.getElementById("title");
-var innerEl = document.getElementById("inner");
-var btnEl = document.getElementById("btn");
-var containerEl = document.getElementById("container");
+const titleEl = document.getElementById("title");
+const innerEl = document.getElementById("inner");
+const btnEl = document.getElementById("btn");
+const containerEl = document.getElementById("container");
+
+let isLoading = false;
+
 function loadingFunction(j) {
-  console.log(j);
   innerEl.style.width = j + "%";
   titleEl.innerHTML = j + "%";
   containerEl.style.borderColor = `rgba(231, 76, 60,${j / 100})`;
@@ -12,10 +14,15 @@ function loadingFunction(j) {
     setTimeout(function () {
       loadingFunction(j);
     }, 30);
+  } else {
+    isLoading = false;
   }
 }
 
 btnEl.addEventListener("click", () => {
-  let i = 0;
-  loadingFunction(i);
+  if (!isLoading) {
+    isLoading = true;
+    let i = 0;
+    loadingFunction(i);
+  }
 });
